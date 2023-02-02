@@ -19,28 +19,12 @@ public class Robot {
     public DcMotor horizontalSlide;
 
     public Robot(HardwareMap hardwareMap) {
-        // Linear Slide Initializations
-        horizontalSlide = hardwareMap.dcMotor.get("hSlide");
-        verticalSlide = hardwareMap.dcMotor.get("vSlide");
-
-        horizontalSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        verticalSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        horizontalSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        horizontalSlide.setTargetPosition(0);
-        horizontalSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        horizontalSlide.setPower(0.5);
-
-        // Claw Initializations
-        verticalClawServo = hardwareMap.servo.get("verticalClaw");
-        horizontalClawServo = hardwareMap.servo.get("intakeClaw");
-        rotatingServo = hardwareMap.servo.get("turret");
 
         // Wheel Initializations
-        backLeftDrive = hardwareMap.get(DcMotor.class, "backleftDrive");
-        backRightDrive = hardwareMap.get(DcMotor.class, "backrightDrive");
-        frontLeftDrive = hardwareMap.get(DcMotor.class, "frontleftDrive");
-        frontRightDrive = hardwareMap.get(DcMotor.class, "frontrightDrive");
+        backLeftDrive = hardwareMap.get(DcMotor.class, "backLeftDrive");
+        backRightDrive = hardwareMap.get(DcMotor.class, "backRightDrive");
+        frontLeftDrive = hardwareMap.get(DcMotor.class, "frontLeftDrive");
+        frontRightDrive = hardwareMap.get(DcMotor.class, "frontRightDrive");
 
         backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
         backRightDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -73,6 +57,13 @@ public class Robot {
         frontRightDrive.setPower(powerVar);
         backLeftDrive.setPower(powerVar);
         backRightDrive.setPower(powerVar);
+    }
+
+    public void setWheelZeroPowerBehavior(DcMotor.ZeroPowerBehavior input) {
+        frontLeftDrive.setZeroPowerBehavior(input);
+        frontRightDrive.setZeroPowerBehavior(input);
+        backLeftDrive.setZeroPowerBehavior(input);
+        backRightDrive.setZeroPowerBehavior(input);
     }
 
     public void forward(Integer input){
@@ -110,20 +101,5 @@ public class Robot {
         backRightDrive.setTargetPosition(backRightDrive.getCurrentPosition()+input);
         frontLeftDrive.setTargetPosition(frontLeftDrive.getCurrentPosition()-input);
         frontRightDrive.setTargetPosition(frontRightDrive.getCurrentPosition()+input);
-    }
-    public void setVerticalClawPosition(Integer input) {
-        verticalClawServo.setPosition(input);
-    }
-
-    public void setHorizontalClawPosition(Integer input) {
-        horizontalClawServo.setPosition(input);
-    }
-
-    public void setVerticalSlide(Integer input) {
-        verticalSlide.setTargetPosition(input);
-    }
-
-    public void setHorizontalSlide(Integer input) {
-        horizontalSlide.setTargetPosition(input);
     }
 }

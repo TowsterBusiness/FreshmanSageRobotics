@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.teamcode.Toggle;
-
 @TeleOp(name="teleop")
 public class TeleOP extends LinearOpMode {
 
@@ -24,9 +22,11 @@ public class TeleOP extends LinearOpMode {
 
         while (opModeIsActive()) {
             Vector2D joystickVector = new Vector2D(gamepad1.left_stick_x, -gamepad1.left_stick_y);
-            double rx = gamepad1.right_stick_x;
 
-            rob.move(joystickVector, rx, true);
+            float speed = 1;
+            rob.right((int) Math.floor(joystickVector.x * speed));
+            rob.forward((int) Math.floor(joystickVector.y * speed));
+
 
             telemetry.update();
         }
